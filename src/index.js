@@ -16,6 +16,7 @@ function clearSelectOptions() {
 
 function populateSelectOptions(breeds) {
   clearSelectOptions();
+
   breeds.forEach(breed => {
     const option = document.createElement('option');
     option.value = breed.id;
@@ -23,7 +24,6 @@ function populateSelectOptions(breeds) {
     breedSelectElement.appendChild(option);
   });
 }
-
 
 function showLoader() {
   loader.style.display = 'block';
@@ -64,6 +64,10 @@ function showCatInfo(cat) {
   `;
 }
 
+function hideLoader() {
+  loader.style.display = 'none';
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   showLoader();
 
@@ -75,7 +79,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       select: '.breed-select',
     });
 
-    showLoader();
+    hideLoader();
   } catch (error) {
     showError();
   }
@@ -89,8 +93,8 @@ breedSelectElement.addEventListener('change', async () => {
   try {
     const cat = await fetchCatByBreed(selectedBreedId);
     showCatInfo(cat);
+    hideLoader();
   } catch (error) {
     showError();
   }
 });
-
