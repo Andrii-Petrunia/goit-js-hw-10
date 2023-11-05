@@ -6,10 +6,6 @@ import Notiflix from 'notiflix';
 
 const breedSelectElement = document.querySelector('.breed-select');
 
-new SlimSelect({
-  select: '.breed-select',
-});
-
 const loader = document.querySelector('.loader');
 const error = document.querySelector('.error');
 const catInfo = document.querySelector('.cat-info');
@@ -74,6 +70,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   try {
     const breeds = await fetchBreeds();
     populateSelectOptions(breeds);
+
+    new SlimSelect({
+      select: '.breed-select',
+    });
+
     showLoader();
   } catch (error) {
     showError();
